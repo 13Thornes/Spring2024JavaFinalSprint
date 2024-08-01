@@ -13,7 +13,7 @@ public static void main(String[] args) {
     Buyer b2 = new Buyer("Sammy648", "Play456", "Sam", "Doe", "sdoe@mail.com", "567823", "Buyer", 2, "123 Main st", "Corner Brook", "NL", "A2H 5L1");
     users.add(b2);
 
-    Admin a1 = new Admin("Jack903", "Play456", "Jack", "Doe", "jadoe@mail.com", "56789312687", "Admin", 1, "tester" );
+    Admin a1 = new Admin("Jack903", "Play456", "Jack", "Doe", "jadoe@mail.com", "0987654321", "Admin", 1, "tester" );
     users.add(a1);
     for(User user: users){
 
