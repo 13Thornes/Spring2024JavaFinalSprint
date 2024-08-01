@@ -1,7 +1,9 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 public class demo {
     
 public static void main(String[] args) {
+    UserService UserService = new UserService();
     ArrayList <User> users = new ArrayList<User>();
 
     Product p1 = new Product(1, "Ball", 4.99, 10, "A red bouncy ball", 4);
@@ -13,6 +15,15 @@ public static void main(String[] args) {
 
     Admin a1 = new Admin("Jack903", "Play456", "Jack", "Doe", "jadoe@mail.com", "56789312687", 1, "tester" );
     users.add(a1);
+    for(User user: users){
+
+        try{
+        UserService.registerUser(user);
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 
     //a1.veiwUsers(users);
     //a1.veiwUser(users);
