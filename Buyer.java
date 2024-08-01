@@ -9,8 +9,8 @@ public class Buyer extends User {
     String postalCode;
     ArrayList<Product> productList = new ArrayList<Product>();
 
-    public Buyer(String username, String password, String firstName, String lastName, String email, String phoneNumber, int buyerID, String stAdd, String city, String prov, String postalcode) {
-        super(username, password, firstName, lastName, email, phoneNumber);
+    public Buyer(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type, int buyerID, String stAdd, String city, String prov, String postalcode) {
+        super(username, password, firstName, lastName, email, phoneNumber, type);
         this.buyerID = buyerID;
         this.stAdd = stAdd;
         this.city = city;
