@@ -5,8 +5,8 @@ public class Admin extends User {
     private int adminID;
     private String position;
 
-    public Admin(String username, String password, String firstName, String lastName, String email, String phoneNumber, int adminID, String position){
-        super(username, password, firstName, lastName, email, phoneNumber);
+    public Admin(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type, int adminID, String position){
+        super(username, password, firstName, lastName, email, phoneNumber, type);
         this.adminID = adminID;
         this.position = position;
     }
