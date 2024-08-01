@@ -17,6 +17,9 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(){
+
+    }
     // Getters and Setters
     public String getUsername() {
         return username;
@@ -75,7 +78,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+                ", phoneNumber='" + phoneNumber + '\'' 
+                ;
     }
 }

@@ -52,8 +52,8 @@ public class Buyer extends User {
    
     @Override
     public String toString() {
-        return "Buyer [buyer_ID=" + buyerID + ", stAdd=" + stAdd + ", city=" + city + ", prov=" + prov
-                + ", postalCode=" + postalCode + "]";
+        return (super.toString() + "Buyer [buyer_ID=" + buyerID + ", stAdd=" + stAdd + ", city=" + city + ", prov=" + prov
+                + ", postalCode=" + postalCode + "]");
     }
     
     public void addProduct(Product product) {
