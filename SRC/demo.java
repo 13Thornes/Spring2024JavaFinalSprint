@@ -5,6 +5,7 @@ public class demo {
     private static UserService userService = new UserService();
     private static BuyerService buyerService = new BuyerService();
     private static SellerService sellerService = new SellerService();
+    private static AdminService adminService = new AdminService();
     Seller curSeller;
     Admin curAdmin;
     Buyer curBuyer;
@@ -127,6 +128,14 @@ public class demo {
         else if(type.equals("S"))
         {
             Boolean back = regSeller(username, password, fName, lName, email, phoneNumber, type);
+            if (back == true){
+                return false;
+            }
+        }
+
+        else if(type.equals("A"))
+        {
+            Boolean back = regAdmin(username, password, fName, lName, email, phoneNumber, type);
             if (back == true){
                 return false;
             }
@@ -283,7 +292,19 @@ public class demo {
         }
 
         Admin user = new Admin(username, password, firstName, lastName, email, phoneNumber, type, 0, postion);
-        return true;
+
+        try{
+            userService.registerUser(user);
+            adminService.registerAdmin(user);
+        user.setAdminID(adminService.getAdminID(username));
+        System.out.println(user.getAdminID());
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            return true;
+        }
+
+        return false;
     }
 public static void main(String[] args) {
     boolean valid = false;
