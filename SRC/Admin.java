@@ -76,7 +76,6 @@ public class Admin extends User {
     }
 
     public void veiwProducts(ArrayList <Seller> sellers, ArrayList <Product> products){
-        System.out.println("Enter");
         for(Seller seller: sellers){
 
                 for(Product product: products){

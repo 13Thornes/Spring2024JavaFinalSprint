@@ -14,11 +14,10 @@ public class UserService {
             System.out.println("User Is Null");
             return false;
         }
+        
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-        String userPass = user.getPassword();
         user.setPassword(hashedPassword);
         userDAO.addUser(user);
-        user.setPassword(userPass);
         System.out.println("User Created");
 
 
