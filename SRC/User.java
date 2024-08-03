@@ -19,6 +19,9 @@ public class User {
         this.type = type;
     }
 
+    public User(){
+
+    }
     // Getters and Setters
     public String getUsername() {
         return username;
@@ -67,6 +70,13 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     // toString method
     @Override
@@ -77,7 +87,9 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+                ", phoneNumber='" + phoneNumber + '\'' 
+                ;
     }
+
+    
 }
