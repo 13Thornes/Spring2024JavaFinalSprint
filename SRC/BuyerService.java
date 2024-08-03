@@ -11,10 +11,6 @@ public class BuyerService {
     }
 
      public boolean registerBuyer(Buyer buyer) throws SQLException{
-        if(buyer.equals(null)){
-            System.out.println("Buyer Is Null");
-            return false;
-        }
 
         buyerDAO.addBuyer(buyer);
         System.out.println("Buyer Created");

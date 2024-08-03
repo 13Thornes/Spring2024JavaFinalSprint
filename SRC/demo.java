@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class demo {
     private static UserService userService = new UserService();
     private static BuyerService buyerService = new BuyerService();
+    private static SellerService sellerService = new SellerService();
     Seller curSeller;
     Admin curAdmin;
     Buyer curBuyer;
@@ -123,6 +124,13 @@ public class demo {
                 return false;
             }
         }
+        else if(type.equals("S"))
+        {
+            Boolean back = regSeller(username, password, fName, lName, email, phoneNumber, type);
+            if (back == true){
+                return false;
+            }
+        }
         return true;
         
     }
@@ -193,6 +201,89 @@ public class demo {
 
         
         return false;
+    }
+
+    public static boolean regSeller(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
+        boolean valid = false;
+        Scanner scanner = new Scanner(System.in);
+        String prov = "";
+        String postalCode = "";
+
+        System.out.println("Enter the street address");
+        String stAdd = scanner.next();
+
+        if(stAdd.equals("-1")){
+            return true;
+        }
+
+        System.out.println("Enter the city");
+        String city = scanner.next();
+
+        if(city.equals("-1")){
+            return true;
+        }
+
+        while(valid == false){
+        System.out.println("Enter the provice");
+        prov = scanner.next();
+
+        if(prov.length() !=2){
+            System.out.println("Provice must be 2 charcters long- Please re-enter");
+        }
+        else if (prov.equals("-1")){
+            return true;
+        }
+        else{
+            valid = true;
+        }
+        }
+
+        valid = false;
+
+        while (valid == false){
+            System.out.println("Please enter the postal code");
+            postalCode = scanner.next();
+
+            if(postalCode.length() != 6){
+                System.out.println("Postal code must be 6 characters long-Please re-enter");
+            }
+            else if(postalCode.equals("-1")){
+                return true;
+            }
+            else{
+                valid = true;
+            }
+        }
+
+        Seller user = new Seller(username, password, firstName, lastName, email, phoneNumber, type, 1, stAdd, city, prov, postalCode);
+        try{
+            userService.registerUser(user);
+            sellerService.registerSeller(user);
+        user.setSellerID(sellerService.getSellerrID(username));
+        System.out.println(user.getSellerID());
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            return true;
+        }
+
+        
+        return false;
+    }
+
+    public static boolean regAdmin(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the Admin postion");
+        String postion = scanner.next();
+
+        if(postion.equals("-1")){
+            return false;
+        }
+
+        Admin user = new Admin(username, password, firstName, lastName, email, phoneNumber, type, 0, postion);
+        return true;
     }
 public static void main(String[] args) {
     boolean valid = false;
