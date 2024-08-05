@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class SellerMenu {
     public static void main(String[] args) {
 
-        // Seller s1 = new Seller("lumpy", "sofa21", "John", "Doe", "lsofa@mail.com", "1234567890", 1, "123 Main St", "Corner Brook", "NL", "A2H 7H2");
+        Seller s1 = new Seller("lumpy", "sofa21", "John", "Doe", "lsofa@mail.com", "1234567890", 1, "123 Main St", "Corner Brook", "NL", "A2H 7H2");
 
         System.out.println("Welcome to the Seller Menu");
         
@@ -32,41 +32,42 @@ public class SellerMenu {
                         break;
 
                     case 2:
+                    addProduct();
                     // add product
-                    int productID;
-                    String productName;
-                    double price;
-                    int qty;
-                    String description;
-                    int sellerID;
+                    // int productID;
+                    // String productName;
+                    // double price;
+                    // int qty;
+                    // String description;
+                    // int sellerID;
 
-                    System.out.println("Please enter the product ID");
-                    productID = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.println("Enter the product name");
-                    productName = scanner.nextLine();
-                    scanner.nextLine();
-
-                    System.out.println("Enter the product description");
-                    
-                    description = scanner.nextLine();
-
-
-                    System.out.println("Enter the product price");
-                    price = scanner.nextDouble();
-
-                    
-                    System.out.println("Enter the product quantity");
-                    qty = scanner.nextInt();
-
+                    // System.out.println("Please enter the product ID");
+                    // productID = scanner.nextInt();
                     
 
-                    System.out.println("Enter the seller's ID");
-                    sellerID = scanner.nextInt();
+                    // System.out.println("Enter the product name");
+                    // productName = scanner.nextLine();
+                    // scanner.nextLine();
+        
+
+                    // System.out.println("Enter the product price");
+                    // price = scanner.nextDouble();
+
+                    
+                    // System.out.println("Enter the product quantity");
+                    // qty = scanner.nextInt();
+
+                    // System.out.println("Enter the product description");
+                    // description = scanner.nextLine();
+                    // scanner.nextLine();
+
+                    // System.out.println("Enter the seller's ID");
+                    // sellerID = scanner.nextInt();
 
 
                     // Product p = new Product(productID, productName, price, qty, description, sellerID);
+
+                    
 
                     
 
@@ -77,6 +78,7 @@ public class SellerMenu {
                     
                     case 3:
                     // update product
+                    
 
                         break;
 

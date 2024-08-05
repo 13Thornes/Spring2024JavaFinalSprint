@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Seller extends User {
 
@@ -126,24 +127,105 @@ public class Seller extends User {
 
     // Product management methods
     public List<Product> viewSellerProducts() {
-        return new ArrayList<>(products);
+        return products;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
+    public void addProduct() {
+        Scanner scanner = new Scanner(System.in);
+
+        int productID;
+        String productName;
+        double price;
+        int qty;
+        String description;
+        int sellerID;
+
+        System.out.println("Please enter the product ID");
+                    productID = scanner.nextInt();
+                    
+
+                    System.out.println("Enter the product name");
+                    productName = scanner.nextLine();
+                    scanner.nextLine();
+        
+
+                    System.out.println("Enter the product price");
+                    price = scanner.nextDouble();
+
+                    
+                    System.out.println("Enter the product quantity");
+                    qty = scanner.nextInt();
+
+                    System.out.println("Enter the product description");
+                    description = scanner.nextLine();
+                    scanner.nextLine();
+
+                    System.out.println("Enter the seller's ID");
+                    sellerID = scanner.nextInt();
+
+
+                    Product p = new Product(productID, productName, price, qty, description, sellerID);
+
+                    products.add(p);
+
+                    System.out.println("Product added");
+
+
     }
 
-    public void updateProduct(Product product) {
+    public void updateProduct() {
+        Scanner scanner = new Scanner(System.in);
+        int productID;
+        String productName;
+        double price;
+        int qty;
+        String description;
+        int sellerID;
+
+        System.out.println("Please enter the product ID");
+                    productID = scanner.nextInt();
+
+
         for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getProductID() == product.getProductID()) {
-                products.set(i, product);
+            if (products.get(i).getProductID() == productID) {
+                System.out.println("Enter the new product name");
+                    productName = scanner.nextLine();
+                    scanner.nextLine();
+        
+
+                    System.out.println("Enter the new product price");
+                    price = scanner.nextDouble();
+
+                    
+                    System.out.println("Enter the new product quantity");
+                    qty = scanner.nextInt();
+
+                    System.out.println("Enter the new product description");
+                    description = scanner.nextLine();
+                    scanner.nextLine();
+
+                    System.out.println("Enter the seller's ID");
+                    sellerID = scanner.nextInt();
+
+
+                    Product p = new Product(productID, productName, price, qty, description, sellerID);
+
+
+                products.set(i, p);
+                System.out.println("Product updated");
                 return;
             }
         }
     }
 
-    public void deleteProduct(Product product) {
-        products.removeIf(p -> p.getProductID() == product.getProductID());
+    public void deleteProduct() {
+        Scanner scanner = new Scanner(System.in);
+        int productID;
+
+        System.out.println("Please enter the product ID");
+        productID = scanner.nextInt();
+
+        products.removeIf(p -> p.getProductID() == productID);
     }
 
     @Override
