@@ -38,4 +38,34 @@ public class BuyerDAO {
         }
         return 0;    
     }
+
+    public Buyer getBuyer(User user) throws SQLException {
+        String sql = "SELECT * FROM \"Buyer\" WHERE \"Username\" = ?";
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setString(1, user.getUsername());
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()) {
+                    return new Buyer(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getPhoneNumber(),
+                        user.getType(),
+                        rs.getInt("Buyer_ID"),
+                        rs.getString("St_Add"),
+                        rs.getString("City"),
+                        rs.getString("Prov"),
+                        rs.getString("Postal_Code")
+                        
+                    );
+                }
+            }
+        }
+        return null;    
+    }
 }

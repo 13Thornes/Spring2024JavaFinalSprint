@@ -24,4 +24,9 @@ public int getbuyerID(String username) throws SQLException{
         int id = buyerDAO.getBuyerID(username);
         return id;
     }
+    public Buyer getBuyer(User user) throws SQLException{
+       
+        Buyer buyer = buyerDAO.getBuyer(user);
+        return buyer;
+    }
 }

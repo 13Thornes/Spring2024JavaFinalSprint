@@ -269,7 +269,7 @@ public class demo {
             userService.registerUser(user);
             sellerService.registerSeller(user);
         user.setSellerID(sellerService.getSellerrID(username));
-        System.out.println(user.getSellerID());
+        //Go to Admin meniu
         }
         catch(SQLException e){
             System.out.println(e);
@@ -279,6 +279,47 @@ public class demo {
         
         return false;
     }
+
+public static boolean login(){
+    String username;
+    String password;
+    Scanner scanner = new Scanner(System.in);
+    
+    System.out.println("Enter your username");
+    username = scanner.next();
+    if(username.equals("-1")){
+        return true;
+    }
+
+    System.out.println("Enter your password");
+    password = scanner.next();
+
+    if(password.equals("-1")){
+        return true;
+    }
+
+    try{
+        User user = userService.authUser(username, password);
+
+        if(user != null){
+        System.out.println(user.toString());
+
+        if(user.getType().equals("B")){
+            Buyer buyer = buyerService.getBuyer(user);
+            System.out.println(buyer.toString());
+        }
+        }
+        else{
+            return false;
+        }
+    }
+    catch(SQLException e){
+        return false;
+    }
+
+    return true;
+
+}
 
     public static boolean regAdmin(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
 
@@ -332,7 +373,10 @@ public static void main(String[] args) {
    }
 
    else if(option.equals("L")){
-    System.out.println("Login");
+    valid = false;
+    while(valid == false){
+        valid = login();
+    }
    }
 
    else{
