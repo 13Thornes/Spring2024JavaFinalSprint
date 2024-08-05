@@ -22,6 +22,13 @@ public int getAdminID(String username) throws SQLException{
         int id = adminDAO.getAdminID(username);
         return id;
     }
+
+
+    public Admin getAdmin(User user) throws SQLException{
+       
+        Admin admin = adminDAO.getAdmin(user);
+        return admin;
+    }
 }
 
 

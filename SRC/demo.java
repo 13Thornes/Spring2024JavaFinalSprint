@@ -315,7 +315,8 @@ public static boolean login(){
         }
 
         else{
-            
+            Admin admin = adminService.getAdmin(user);
+            System.out.println(admin.toString());
         }
         }
         else{
