@@ -308,6 +308,15 @@ public static boolean login(){
             Buyer buyer = buyerService.getBuyer(user);
             System.out.println(buyer.toString());
         }
+
+        else if(user.getType().equals("S")){
+            Seller seller = sellerService.getSeller(user);
+            System.out.println(seller.toString());
+        }
+
+        else{
+            
+        }
         }
         else{
             return false;

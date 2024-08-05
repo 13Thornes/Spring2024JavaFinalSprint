@@ -34,4 +34,30 @@ public class AdminDAO {
        }
        return 0;    
    }
+
+   public Admin getAdmin(User user) throws SQLException {
+    String sql = "SELECT * FROM \"Admin\" WHERE \"Username\" = ?";
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+        preparedStatement.setString(1, user.getUsername());
+
+        try (ResultSet rs = preparedStatement.executeQuery()){
+            if (rs.next()) {
+                return new Admin(
+                    user.getUsername(),
+                    user.getPassword(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail(),
+                    user.getPhoneNumber(),
+                    user.getType(),
+                    rs.getInt("Admin_ID"),
+                    rs.getString("Position")
+                );
+            }
+        }
+    }
+    return null;    
+}
 }
