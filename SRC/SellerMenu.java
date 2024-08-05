@@ -42,18 +42,25 @@ public class SellerMenu {
 
                     System.out.println("Please enter the product ID");
                     productID = scanner.nextInt();
+                    scanner.nextLine();
 
                     System.out.println("Enter the product name");
-                    productName = scanner.next();
+                    productName = scanner.nextLine();
+                    scanner.nextLine();
+
+                    System.out.println("Enter the product description");
+                    
+                    description = scanner.nextLine();
+
 
                     System.out.println("Enter the product price");
                     price = scanner.nextDouble();
 
+                    
                     System.out.println("Enter the product quantity");
                     qty = scanner.nextInt();
 
-                    System.out.println("Enter the product description");
-                    description = scanner.next();
+                    
 
                     System.out.println("Enter the seller's ID");
                     sellerID = scanner.nextInt();
