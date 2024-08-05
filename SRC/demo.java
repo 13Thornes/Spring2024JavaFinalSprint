@@ -357,7 +357,31 @@ public static boolean login(){
 
         return false;
     }
-public static void main(String[] args) {
+
+public static void buyerMenu(Buyer buyer){
+    Scanner scanner = new Scanner(System.in);
+    boolean out = false;
+    int choice = 0;
+
+    System.out.println("Welcome " + buyer.getUsername());
+    System.out.println("1: Veiw All Products\n2: Product Search\n3.Exit");
+    try{
+    choice = scanner.nextInt();
+    }
+    catch(NumberFormatException e){
+        System.out.println("Input must be a number-Please renter");
+    }
+
+    Switch(choice){
+        case 1:
+        //veiw Products
+    }
+
+
+
+
+}
+    public static void main(String[] args) {
     boolean valid = false;
     Scanner scanner = new Scanner(System.in);
     ArrayList <User> users = new ArrayList<User>();
