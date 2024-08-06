@@ -372,9 +372,19 @@ public static void buyerMenu(Buyer buyer){
         System.out.println("Input must be a number-Please renter");
     }
 
-    Switch(choice){
+    switch(choice){
         case 1:
         //veiw Products
+        //addproduct(seller)
+
+        case 2:
+        //Search product
+
+        case 3:
+        out = true;
+
+        default:
+        System.out.println("Invalid input");
     }
 
 
