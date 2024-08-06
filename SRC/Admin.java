@@ -75,7 +75,20 @@ public class Admin extends User {
             return adminID;
     }
 
-    //Veiw Products
+    public void veiwProducts(ArrayList <Seller> sellers, ArrayList <Product> products){
+        for(Seller seller: sellers){
+
+                for(Product product: products){
+                    if(product.getSellerID() == seller.getSellerID()){
+                    System.out.println(product.getProductName() + " " + seller.getFirstName() + " " + seller.getLastName()  );
+                   // System.out.println("$" + product.getPrice() + " Quanity: " + product.getQty());
+                  //  System.out.println(product.getDescription());
+                   // System.out.println("Contact: " + seller.getPhoneNumber() + seller.getEmail());
+                    }
+                }
+                
+        }
+    }
 
     @Override
     public String toString() {

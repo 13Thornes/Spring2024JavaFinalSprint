@@ -15,14 +15,35 @@ public class UserService {
             System.out.println("User Is Null");
             return false;
         }
+
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-        String userPass = user.getPassword();
         user.setPassword(hashedPassword);
         userDAO.addUser(user);
-        user.setPassword(userPass);
         System.out.println("User Created");
 
 
         return true;
+}
+
+public User authUser(String username,String password) throws SQLException{
+    if(username == null || password == null){
+        System.out.println("The User Does Not Exist");
+    }
+
+    User user = userDAO.getUserByUsername(username);
+
+    if(user == null){
+        System.out.println("The User Does Not Exist! ");
+        return null;
+    }
+
+    if(!BCrypt.checkpw(password, user.getPassword())){
+        System.out.println("Wrong Password, Please Try Again!");
+        return null;
+    }
+
+    
+
+    return user;
 }
 }
