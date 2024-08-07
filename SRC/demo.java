@@ -315,6 +315,7 @@ public static boolean login(){
         else if(user.getType().equals("S")){
             Seller seller = sellerService.getSeller(user);
             System.out.println(seller.toString());
+            sellerMenu(seller);
         }
 
         else{
@@ -447,7 +448,111 @@ catch(SQLException e){
 }
 
 
+
 }
+
+public static void sellerMenu(Seller seller){
+    System.out.println("Welcome to the Seller Menu");
+        
+        System.out.println("1. View Seller Products");
+        System.out.println("2. Add Product");
+        System.out.println("3. Update Product");
+        System.out.println("4. Delete Product");
+        
+
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        boolean validInput = false;
+
+        while(validInput == false){
+            System.out.println("Please select option 1-4");
+            choice = scanner.nextInt();
+    
+            if(choice >= 1 && choice < 4 ){
+                validInput = true;
+                
+
+                switch (choice) {
+                    case 1:
+                    System.out.println("Enter veiw products");
+                    try{
+                    ArrayList<Product>products = productService.getSellerProduct(seller.getSellerID());
+
+                    if(products == null){
+                        System.out.println("You have no products to sell");
+                    }
+
+                    else{
+                        for(Product product: products){
+                            System.out.println(product.toString());
+                        }
+                    }
+                    }
+                    catch(SQLException e){
+                        System.out.println(e);
+                    }
+                        
+                    break;
+
+                    case 2:
+                    // add product
+                    String productName;
+                    double price;
+                    int qty;
+                    String description;
+                    int sellerID;
+
+                    scanner.nextLine();
+                    System.out.println("Enter the product name");
+                    productName = scanner.nextLine();
+                    
+
+                    System.out.println("Enter the product description");
+                    
+                    description = scanner.nextLine();
+
+
+                    System.out.println("Enter the product price");
+                    price = scanner.nextDouble();
+
+                    
+                    System.out.println("Enter the product quantity");
+                    qty = scanner.nextInt();
+
+                    
+                    sellerID = seller.getSellerID();
+
+
+                     Product p = new Product(0, productName, price, qty, description, sellerID);
+                     try{
+                     productService.registerProduct(p);
+                     }
+                     catch(SQLException e){
+                        System.out.println("Problem with the database");
+                        System.out.println(e);
+                     }
+                     break;
+
+                    case 3:
+                    scanner.nextLine();
+
+                    System.out.println("Enter the name of the product you wish to update");
+                     productName = scanner.nextLine();
+
+                     try{
+                     Product product = productService.getProduct(productName);
+                     }
+                     catch(SQLException e){
+                        
+                     }
+
+
+                }
+            }
+        }
+}
+
     public static void main(String[] args) {
     boolean valid = false;
     Scanner scanner = new Scanner(System.in);

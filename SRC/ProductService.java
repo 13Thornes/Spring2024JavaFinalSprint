@@ -34,4 +34,10 @@ public int getProductID(String productID) throws SQLException{
         ArrayList<Product>products = productDAO.getAllProducts();
         return products;
     }
+
+    public ArrayList<Product> getSellerProduct(int sellerID) throws SQLException{
+       
+        ArrayList<Product>products = productDAO.getSellerProducts(sellerID);
+        return products;
+    }
 }
