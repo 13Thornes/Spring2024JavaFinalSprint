@@ -469,7 +469,7 @@ public static void sellerMenu(Seller seller){
             System.out.println("Please select option 1-4");
             choice = scanner.nextInt();
     
-            if(choice >= 1 && choice < 4 ){
+            if(choice >= 1 && choice <= 4 ){
                 validInput = true;
                 
 
@@ -579,7 +579,34 @@ public static void sellerMenu(Seller seller){
                      }
                      break;
                      case 4:
-                     
+                     product = null;
+                     noError = true;
+                     scanner.nextLine();
+                    System.out.println("Enter the name of the product you wish to update");
+                     productName = scanner.nextLine();
+
+                     try{
+                      product = productService.getProduct(productName);
+
+                     }
+                     catch(SQLException e){
+                        System.out.println(e);
+                        noError = false;
+                     }
+
+                     if(noError){
+                        if(product == null){
+                            System.out.println(productName + " does not exisit");
+                        }
+                        else{
+                            try{
+                                productService.deleteProduct(productName);
+                            }
+                            catch(SQLException e){
+                                System.out.println(e);
+                            }
+                        }
+                    } 
 
 
                 }

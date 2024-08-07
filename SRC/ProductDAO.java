@@ -132,6 +132,21 @@ public  void updateProduct(String productName, Product product){
         System.out.println(e);
     }
 }
+
+public  void deleateProduct(String productName){
+    String sql = "Delete FROM  \"Product\" Where  \"Product_Name\" = ?";
+
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setString(1, productName);
+        preparedStatement.executeUpdate();
+    
+
+    }
+    catch(SQLException e){
+        System.out.println(e);
+    }
+}
 }
 
 

@@ -44,9 +44,12 @@ public int getProductID(String productID) throws SQLException{
     public void updateProduct(Product product, String productName) throws SQLException{
 
         productDAO.updateProduct( productName, product);
-        System.out.println("Product Updated");
+        System.out.println("Product Updated");   
+}
 
+    public void deleteProduct(String productName) throws SQLException{
 
-        
+    productDAO.deleateProduct( productName);
+    System.out.println("Product Deleted");   
 }
 }
