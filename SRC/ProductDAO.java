@@ -109,6 +109,29 @@ public ArrayList<Product> getAllProducts() throws SQLException {
     }
     return product;    
 }
+
+public  void updateProduct(String productName, Product product){
+    String sql = "UPDATE  \"Product\" SET \"Product_Name\" = ?, \"Price\" = ?, \"QTY\" = ?, \"Description\" = ? WHERE \"Product_Name\" = ?";
+
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setString(5, productName);
+
+        
+        
+        preparedStatement.setString(1, product.getProductName());
+        preparedStatement.setDouble(2, product.getPrice());
+        preparedStatement.setInt(3, product.getQty());
+        preparedStatement.setString(4, product.getDescription());
+
+        preparedStatement.executeUpdate();
+    
+
+    }
+    catch(SQLException e){
+        System.out.println(e);
+    }
+}
 }
 
 

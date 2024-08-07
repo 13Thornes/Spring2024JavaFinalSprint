@@ -536,16 +536,50 @@ public static void sellerMenu(Seller seller){
 
                     case 3:
                     scanner.nextLine();
-
+                    Product product = null;
+                    Boolean noError = true;
                     System.out.println("Enter the name of the product you wish to update");
                      productName = scanner.nextLine();
 
                      try{
-                     Product product = productService.getProduct(productName);
+                      product = productService.getProduct(productName);
+
                      }
                      catch(SQLException e){
-                        
+                        System.out.println(e);
+                        noError = false;
                      }
+
+                     if(noError){
+                        if(product == null){
+                            System.out.println(productName + " does not exisit");
+                        }
+                        else{
+                            scanner.nextLine();
+
+                            System.out.println("Enter the product name");
+                            product.setProductName(scanner.nextLine());
+
+                            System.out.println("Enter the price");
+                            product.setPrice(scanner.nextDouble());
+
+                            System.out.println("Enter the QTY");
+                            product.setQty(scanner.nextInt());
+
+                            scanner.nextLine();
+                            System.out.println("Enter the Description");
+                            product.setDescription(scanner.nextLine());
+                            try{
+                            productService.updateProduct(product, productName);
+                            }
+                            catch(SQLException e){
+                                System.out.println(e);
+                            }
+                        }
+                     }
+                     break;
+                     case 4:
+                     
 
 
                 }

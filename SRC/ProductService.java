@@ -40,4 +40,13 @@ public int getProductID(String productID) throws SQLException{
         ArrayList<Product>products = productDAO.getSellerProducts(sellerID);
         return products;
     }
+
+    public void updateProduct(Product product, String productName) throws SQLException{
+
+        productDAO.updateProduct( productName, product);
+        System.out.println("Product Updated");
+
+
+        
+}
 }
