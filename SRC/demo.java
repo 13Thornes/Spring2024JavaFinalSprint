@@ -6,6 +6,7 @@ public class demo {
     private static BuyerService buyerService = new BuyerService();
     private static SellerService sellerService = new SellerService();
     private static AdminService adminService = new AdminService();
+    private static ProductService productService = new ProductService();
     Seller curSeller;
     Admin curAdmin;
     Buyer curBuyer;
@@ -305,8 +306,10 @@ public static boolean login(){
         System.out.println(user.toString());
 
         if(user.getType().equals("B")){
+            
             Buyer buyer = buyerService.getBuyer(user);
             System.out.println(buyer.toString());
+            buyerMenu(buyer);
         }
 
         else if(user.getType().equals("S")){
@@ -364,6 +367,7 @@ public static void buyerMenu(Buyer buyer){
     int choice = 0;
 
     System.out.println("Welcome " + buyer.getUsername());
+    while(out == false){
     System.out.println("1: Veiw All Products\n2: Product Search\n3.Exit");
     try{
     choice = scanner.nextInt();
@@ -374,20 +378,73 @@ public static void buyerMenu(Buyer buyer){
 
     switch(choice){
         case 1:
-        //veiw Products
-        //addproduct(seller)
+        veiwAllProducts();
+        break;
+        
 
         case 2:
-        //Search product
+        searchProduct();
+        break;
 
         case 3:
         out = true;
+        break;
 
         default:
         System.out.println("Invalid input");
+        break;
+    }
+}
+    
+
+
+   
+
+
+}
+
+public static void veiwAllProducts(){
+        ArrayList<Product>products = new ArrayList<Product>();
+    try{
+        products = productService.getAllProduct();
+
+        for(Product product: products){
+            System.out.println(product.toString());
+            
+        }
+    }
+    catch(SQLException e){
+        System.out.println("Cannot access database");
+        
     }
 
 
+}
+
+public static void searchProduct(){
+    String productName;
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Enter the product Name");
+    productName = scanner.next();
+
+try{
+    Product product = productService.getProduct(productName);
+
+    if(product == null){
+        System.out.println("Could not find product");
+
+    
+    }
+    else{
+        System.out.println(product.toString());
+    }
+
+    
+}
+catch(SQLException e){
+    System.out.println(e);
+}
 
 
 }
