@@ -50,4 +50,22 @@ public class UserDAO {
         }
         return null;    
     }
+
+    public Boolean validateUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM \"User\" WHERE \"Username\" = ?";
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()) {
+                    System.out.println("Username already exist-Please try another one");
+                    return false;
+                
+                }
+            }
+        }
+        return true;    
+    }
 }
