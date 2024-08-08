@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class demo {
     private static UserService userService = new UserService();
@@ -551,6 +552,7 @@ public static void sellerMenu(Seller seller){
 
 
         Scanner scanner = new Scanner(System.in);
+        String menuCheck;
         int choice = 0;
         boolean validInput = false;
 
@@ -562,7 +564,13 @@ public static void sellerMenu(Seller seller){
         System.out.println("3. Update Product");
         System.out.println("4. Delete Product");
         System.out.println("Please select option 1-4");
-            choice = scanner.nextInt();
+        menuCheck = scanner.next();
+        try{
+            choice = Integer.valueOf(menuCheck);
+        }
+        catch(NumberFormatException e){
+
+        }
     
             
                 
@@ -615,9 +623,12 @@ public static void sellerMenu(Seller seller){
 
                     while(valid == false)
                     {
-                        try{
                         System.out.println("Enter the product price");
-                        price = scanner.nextDouble();
+                       String check = scanner.next();
+                        
+                        try{
+                            price = Double.parseDouble(check);
+                        
                         valid = true;
                         }
                         catch(NumberFormatException e){
@@ -629,9 +640,11 @@ public static void sellerMenu(Seller seller){
                     valid = false;
 
                     while (valid == false){
-                        try{
+
                     System.out.println("Enter the product quantity");
-                    qty = scanner.nextInt();
+                        String check = scanner.next();
+                        try{
+                        qty = Integer.parseInt(check);
                     valid = true;
                         }
                         catch(NumberFormatException e){
