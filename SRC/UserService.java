@@ -40,9 +40,16 @@ public User authUser(String username,String password) throws SQLException{
         System.out.println("Wrong Password, Please Try Again!");
         return null;
     }
-
-    
-
     return user;
+}
+
+public boolean validateUsername(String username){
+
+    try{
+    return userDAO.validateUsername(username);
+    }
+    catch(SQLException e){
+        return false;
+    }
 }
 }
