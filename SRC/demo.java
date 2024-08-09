@@ -821,16 +821,40 @@ public static void adminMenu(Admin admin) {
                 ArrayList<User>users = adminService.getAllUser();
                 if(users == null){
                     System.out.println("There are currently no users");
-            }
+                }
             else {
                 for (User user: users) {
                     System.out.println(user.toString());
                 }
             }}
-
             catch (SQLException e) {
                 System.out.println(e);
             }
+            break;
+
+            case 2:
+                
+            break;
+
+            case 3:
+            try {
+                ArrayList<Product>products = productService.getAllProduct();
+                if(products == null) {
+                    System.out.println("There are currently no products");
+                }
+                else {
+                    for (Product product: products) {
+                        int sellerID;
+                        sellerID = product.getSellerID();
+                        Seller seller = sellerService.getSeller(sellerID);
+
+                        System.out.println(product.toString());
+                        System.out.println(seller.toString());
+                    }}
+                }
+                catch (SQLException e) {
+                    System.out.println(e);
+                } 
             break;
         }
     }

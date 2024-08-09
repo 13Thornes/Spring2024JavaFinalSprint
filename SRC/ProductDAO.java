@@ -178,7 +178,7 @@ public  void updateProduct(String productName, Product product){
  * deletes a product from the database
  * @param productName represents the name of the product that we'll delete
  */
-public void deleateProduct(String productName){
+public void deleteProduct(String productName){
     String sql = "Delete FROM  \"Product\" Where  \"Product_Name\" = ?";
 
     try(Connection conn = DatabaseConnection.getConnection()){

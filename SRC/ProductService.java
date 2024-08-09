@@ -99,7 +99,7 @@ public int getProductID(String productID) throws SQLException{
      */
     public void deleteProduct(String productName) throws SQLException{
 
-    productDAO.deleateProduct( productName);
+    productDAO.deleteProduct( productName);
     System.out.println("Product Deleted");   
 }
 }

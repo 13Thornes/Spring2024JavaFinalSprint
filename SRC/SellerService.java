@@ -3,9 +3,6 @@
 // Date: July 26th - August 9th 2024
 
 // import required libraries
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -35,15 +32,15 @@ public class SellerService {
 
 
         return true;
-}
+    }
 
-/**
- * gets the seller id using the username
- * @param username is how we search the database for the seller
- * @return the seller that matches the username
- * @throws SQLException if the search is unsuccessful
- */
-public int getSellerrID(String username) throws SQLException{
+    /**
+     * gets the seller id using the username
+     * @param username is how we search the database for the seller
+     * @return the seller that matches the username
+     * @throws SQLException if the search is unsuccessful
+     */
+    public int getSellerrID(String username) throws SQLException{
        
         int id = sellerDAO.getSellerID(username);
         return id;
@@ -52,12 +49,24 @@ public int getSellerrID(String username) throws SQLException{
     /**
      * Get seller that matches a user
      * @param user is how we search for the seller
-     * @return the seller that ,atches the user
+     * @return the seller that matches the user
      * @throws SQLException if the search is unsuccessful
      */
     public Seller getSeller(User user) throws SQLException{
        
         Seller seller = sellerDAO.getSeller(user);
+        return seller;
+    }
+
+    /**
+     * Get seller that matches a user
+     * @param sellerID is how we search for the seller
+     * @return the seller that matches the ID
+     * @throws SQLException if the search is unsuccessful
+     */
+    public Seller getSeller(int sellerID) throws SQLException{
+       
+        Seller seller = sellerDAO.getSeller(sellerID);
         return seller;
     }
 

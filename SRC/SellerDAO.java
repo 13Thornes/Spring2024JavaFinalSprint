@@ -96,6 +96,41 @@ public class SellerDAO {
         }
         return null;    
     }
+    /**
+     * Gets a seller by searching for a matching user
+     * @param user is the user we're searching for
+     * @return the Seller that matches the user
+     * @throws SQLException if the search is unsuccessful
+     */
+    public Seller getSeller(int sellerID) throws SQLException {
+        String sql = "SELECT * FROM \"Seller\" WHERE \"Seller_ID\" = ?";
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, sellerID);
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()) {
+                    return new Seller(
+                        rs.getString("Username"),
+                        rs.getString("Password"),
+                        rs.getString("First_Name"),
+                        rs.getString("Last_Name"),
+                        rs.getString("Email"),
+                        rs.getString("Phone_Number"),
+                        rs.getString("Type"),
+                        rs.getInt("Seller_ID"),
+                        rs.getString("St_Add"),
+                        rs.getString("City"),
+                        rs.getString("Prov"),
+                        rs.getString("Postal_Code")
+                        
+                    );
+                }
+            }
+        }
+        return null;    
+    }
 }
 
 

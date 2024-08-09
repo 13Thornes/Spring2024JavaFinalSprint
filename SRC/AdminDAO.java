@@ -59,11 +59,11 @@ public class AdminDAO {
        return 0;    
    }
 
-   /**
-     * Get all users from user table
-     * @return all the users
-     * @throws SQLException if returning the list is unsuccessful
-     */
+    /**
+    * Get all users from user table
+    * @return all the users
+    * @throws SQLException if returning the list is unsuccessful
+    */
    public ArrayList<User> getAllUsers() throws SQLException {
     String sql = "SELECT * FROM \"User\"";
     ArrayList<User> users = new ArrayList<User>();
