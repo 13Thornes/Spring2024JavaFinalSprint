@@ -1,11 +1,24 @@
+// Project: Final Sprint Java, Ecommerce
+// Author: Luke Peddle, Micheal Walsh, Samantha Thorne
+// Date: July 26th - August 9th 2024
+
+// import required libraries
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author Samantha Thorne
+ * @version 1.00
+ */
 public class SellerDAO {
 
-
+    /**
+     * Adds a seller to the database
+     * @param seller represents the seller we want to add
+     * @throws SQLException if adding the seller isn't successful
+     */
      public void addSeller(Seller seller) throws SQLException{
         String sql = "INSERT INTO \"Seller\" (\"Username\", \"St_Add\", \"City\", \"Prov\", \"Postal_Code\") VALUES (?, ?, ?, ?, ?)";
 
@@ -25,6 +38,13 @@ public class SellerDAO {
             
         }
     }
+
+    /**
+     * Gets the seller ID from the database
+     * @param username is how we search for the seller
+     * @return the id of the seller
+     * @throws SQLException if the search is unsuccessful
+     */
     public int getSellerID(String username) throws SQLException {
         String sql = "SELECT * FROM \"Seller\" WHERE \"Username\" = ?";
         try(Connection conn = DatabaseConnection.getConnection()){
@@ -41,6 +61,12 @@ public class SellerDAO {
         return 0;    
     }
 
+    /**
+     * Gets a seller by searching for a matching user
+     * @param user is the user we're searching for
+     * @return the Seller that matches the user
+     * @throws SQLException if the search is unsuccessful
+     */
     public Seller getSeller(User user) throws SQLException {
         String sql = "SELECT * FROM \"Seller\" WHERE \"Username\" = ?";
         try(Connection conn = DatabaseConnection.getConnection()){

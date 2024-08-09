@@ -6,7 +6,7 @@
 import java.util.ArrayList;
 
 /**
- * @author Samantha Throne
+ * @author Samantha Thorne
  * @version 1.00
  */
 public class Buyer extends User {

@@ -1,4 +1,4 @@
-
+// connecting to the postgress database
 import java.sql.*;
 public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://localhost:5432/ECommerce";
