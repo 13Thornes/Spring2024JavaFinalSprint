@@ -4,6 +4,7 @@
 
 // import required libraries
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @author Samantha Thorne
@@ -57,6 +58,15 @@ public int getAdminID(String username) throws SQLException{
        
         Admin admin = adminDAO.getAdmin(user);
         return admin;
+    }
+/**
+ * Searches the whole database for users then lists them
+ * @return ArrayList of users
+ * @throws SQLException if the search is unsuccessful
+ */
+    public ArrayList<User> getAllUser() throws SQLException{
+        ArrayList<User>users = adminDAO.getAllUsers();
+        return users;
     }
 }
 

@@ -794,6 +794,48 @@ public static void sellerMenu(Seller seller){
         }
 }
 
+public static void adminMenu(Admin admin) {
+
+    System.out.println("Welcome to the Admin Menu");
+
+    Scanner scanner = new Scanner(System.in);
+    String menuCheck;
+    int choice = 0;
+    boolean validInput = false;
+
+    while(validInput == false){
+        System.out.println("1. View Users");
+        System.out.println("2. Delete Users");
+        System.out.println("3. List Products");
+        System.out.println("Please select option 1-3");
+        menuCheck = scanner.next();
+        try{
+            choice = Integer.valueOf(menuCheck);
+        }
+        catch(NumberFormatException e){
+
+        }
+        switch (choice) {
+            case 1:
+            try {
+                ArrayList<User>users = adminService.getAllUser();
+                if(users == null){
+                    System.out.println("There are currently no users");
+            }
+            else {
+                for (User user: users) {
+                    System.out.println(user.toString());
+                }
+            }}
+
+            catch (SQLException e) {
+                System.out.println(e);
+            }
+            break;
+        }
+    }
+}
+
     public static void main(String[] args) {
     boolean valid = false;
     Scanner scanner = new Scanner(System.in);

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
  /**
@@ -57,6 +58,34 @@ public class AdminDAO {
        }
        return 0;    
    }
+
+   /**
+     * Get all users from user table
+     * @return all the users
+     * @throws SQLException if returning the list is unsuccessful
+     */
+   public ArrayList<User> getAllUsers() throws SQLException {
+    String sql = "SELECT * FROM \"User\"";
+    ArrayList<User> users = new ArrayList<User>();
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                while (rs.next()) {
+                    users.add( new User(
+                        rs.getString("Username"),
+                        rs.getString("Password"),
+                        rs.getString("First_Name"),
+                        rs.getString("Last_Name"),
+                        rs.getString("Email"),
+                        rs.getString("Phone_Number"),
+                        rs.getString("Type")
+                    ));
+                }
+            }
+        }
+    return users;    
+    }
 
    /**
     * Gets an admin from a user's username
