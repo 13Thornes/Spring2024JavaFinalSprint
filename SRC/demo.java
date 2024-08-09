@@ -318,7 +318,7 @@ public class demo {
             userService.registerUser(user);
             sellerService.registerSeller(user);
         user.setSellerID(sellerService.getSellerrID(username));
-        //Go to Seller meniu
+        //Go to Seller menu
         sellerMenu(user);
         }
         catch(SQLException e){
@@ -383,9 +383,8 @@ public static boolean login(){
         else{
             //get the data from the database
             Admin admin = adminService.getAdmin(user);
-
             //Go to the admin meunu
-            
+            adminMenu(admin);
         }
         }
         //Return to the main menu
@@ -425,7 +424,7 @@ public static boolean login(){
         user.setAdminID(adminService.getAdminID(username));
 
         //Go to the admin menu
-        
+        adminMenu(user);
         }
         catch(SQLException e){
             System.out.println(e);
@@ -743,7 +742,7 @@ public static void sellerMenu(Seller seller){
                      }
                      break;
 
-                     //Deleate product
+                     //Delete product
                      case 4:
                      product = null;
                      noError = true;
@@ -833,7 +832,59 @@ public static void adminMenu(Admin admin) {
             break;
 
             case 2:
-                
+            User user = null;
+            boolean noError = true;
+            scanner.nextLine();
+
+            System.out.println("Enter the username of the user you wish to delete");
+            String username = scanner.nextLine();
+            
+            try {
+                user = userService.getUser(username);
+            }
+            catch (SQLException e) {
+                System.out.println(e);
+                noError = false;
+            }
+            if(noError){
+                if(user == null){
+                    System.out.println("There is no user under this name");
+                }
+
+                else {
+                    try {
+                        String confirmation = "";
+                        //Loop until a valid response is given
+                        while (true) {
+                            System.out.println("Are you sure you wish to delete this user? This will also delete their product listings. Y/N");
+                            confirmation = scanner.nextLine().trim().toUpperCase();
+                    
+                            //Check for valid input
+                            if (confirmation.equals("Y")) {
+                                //Admin chose to delete, proceed to delete user and their products
+                                if (sellerService.isSeller(user)){
+                                    sellerService.deleteSeller(username);
+                                }
+                                else {
+                                    userService.deleteUser(username);
+                                }
+                                System.out.println("User and their product listings have been deleted.");
+                                break;
+                            } else if (confirmation.equals("N")) {
+                                //Admin chose to not delete, exit operation
+                                System.out.println("Deletion canceled.");
+                                return;
+                            } else {
+                                //Handle invalid input
+                                System.out.println("Invalid input. Please enter 'Y' to confirm or 'N' to cancel.");
+                            }
+                        }}
+                    catch (SQLException e) {
+                        System.out.println(e);
+                        noError = false;
+                    }
+                }
+            }
             break;
 
             case 3:

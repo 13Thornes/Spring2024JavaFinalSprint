@@ -42,6 +42,24 @@ public class UserDAO {
             
         }
     }
+    /**
+     * Deletes a user from the database
+     * @param username represents the user we want to delete
+     * @throws SQLException if deleting the user isn't successful
+     */
+    public void deleteUser(String username) throws SQLException {
+        String sql = "DELETE FROM  \"User\" WHERE  \"Username\" = ?";
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
 
     /**
      * Gets the user by it's username

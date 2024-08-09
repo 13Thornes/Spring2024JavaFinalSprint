@@ -118,6 +118,19 @@ public ArrayList<Product> getSellerProducts(int sellerID) throws SQLException {
     return product;    
 }
 
+public void deleteSellerProducts(int sellerID) throws SQLException {
+    String sql = "DELETE FROM  \"Product\" WHERE \"Seller_ID\" = ?";
+
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, sellerID);
+        preparedStatement.executeUpdate();
+    }
+    catch(SQLException e){
+        System.out.println(e);
+    }
+}
+
 /**
  * Get all products from the product table
  * @return all the products

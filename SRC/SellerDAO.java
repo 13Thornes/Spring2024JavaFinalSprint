@@ -38,6 +38,23 @@ public class SellerDAO {
             
         }
     }
+    /**
+     * Deletes a seller from the database
+     * @param username represents the seller we want to delete
+     * @throws SQLException if deleting the seller isn't successful
+     */
+    public void deleteSeller(String username) throws SQLException {
+        String sql = "DELETE FROM  \"Seller\" WHERE \"Username\" = ?";
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 
     /**
      * Gets the seller ID from the database
@@ -130,6 +147,31 @@ public class SellerDAO {
             }
         }
         return null;    
+    }
+    /**
+     * Returns true if a user is a seller
+     * @param user is the user we're searching for
+     * @return true if user is seller
+     * @throws SQLException if the search is unsuccessful
+     */
+    public boolean isSeller(User user) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM \"Seller\" WHERE \"Username\" = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            
+            preparedStatement.setString(1, user.getUsername());
+            
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw e;
+        }
+        return false;
     }
 }
 

@@ -41,6 +41,31 @@ public class UserService {
 
         return true;
 }
+
+/**
+ * Deletes a user from the database
+ * @param user represents the user we're deleting
+ * @throws SQLException if creation was unsuccessfull
+ */
+
+public void deleteUser(String username) throws SQLException{
+    userDAO.deleteUser(username);
+}
+
+/**
+ * Gets a user from the database
+ * @param user represents the user we're getting
+ * @return user if found
+ * @throws SQLException if creation was unsuccessfull
+ */
+public User getUser(String username) throws SQLException {
+    if(username == null){
+        System.out.println("The User Does Not Exist");
+    }
+    User user = userDAO.getUserByUsername(username);
+    return user;
+}
+
 /**
  * makes sure a user is authorized
  * @param username represents the username to login
