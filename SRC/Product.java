@@ -3,7 +3,7 @@
 // Date: July 26th - August 9th 2024
 
 /**
- * @author Samantha Throne
+ * @author Samantha Thorne
  * @version 1.00
  */
 public class Product {

@@ -3,7 +3,7 @@
 // Date: July 26th - August 9th 2024
 
 /**
- * @author Samantha Throne
+ * @author Samantha Thorne
  * @version 1.00
  */
 public class User {
@@ -161,7 +161,7 @@ public class User {
 
     /**
      * 
-     * @param email accepts the phone number of the user and set it to the User object
+     * @param phoneNumber accepts the phone number of the user and set it to the User object
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -177,7 +177,7 @@ public class User {
 
     /**
      * 
-     * @param email accepts the type of user and set it to the User object
+     * @param type accepts the type of user and set it to the User object
      */
     public void setType(String type) {
         this.type = type;

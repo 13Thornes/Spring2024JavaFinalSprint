@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author Samantha Throne
+ * @author Samantha Thorne
  * @version 1.00
  */
 public class Admin extends User {
@@ -21,8 +21,6 @@ public class Admin extends User {
       * represents the psotion of the admin
       */
     private String position;
-
-    // Constructor
     /**
      * 
      * @param username Accepts the username of the admin and set it to the Admin object
@@ -100,7 +98,7 @@ public class Admin extends User {
     }
 
     /**
-     * View a all users from a list of users
+     * View all users from a list of users
      * @param users allows us to view a list of all users
      */
     public void veiwUsers(ArrayList <User> users){

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * @author Samantha Throne
+ * @author Samantha Thorne
  * @version 1.00
  */
 public class Seller extends User {
