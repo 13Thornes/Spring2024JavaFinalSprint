@@ -1,10 +1,26 @@
+// Project: Final Sprint Java, Ecommerce
+// Author: Luke Peddle, Micheal Walsh, Samantha Thorne
+// Date: July 26th - August 9th 2024
+
+// import required libraries
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+ /**
+ * @author Samantha Throne
+ * @version 1.00
+ */
 public class AdminDAO {
+
+    /**
+     * Adds an admin to the database
+     * @param admin represents the admin added to the database
+     * @throws SQLException to show that admin wasn't successfully added
+     */
     public void addAdmin(Admin admin) throws SQLException{
        String sql = "INSERT INTO \"Admin\" (\"Username\", \"Position\") VALUES (?, ?)";
 
@@ -20,6 +36,13 @@ public class AdminDAO {
            
        }
    }
+
+   /**
+    * Allows you to retrieve an admin ID
+    * @param username accepts the admin's username
+    * @return the admin id
+    * @throws SQLException if getting admin ID is unsuccessful
+    */
    public int getAdminID(String username) throws SQLException {
        String sql = "SELECT * FROM \"Admin\" WHERE \"Username\" = ?";
        try(Connection conn = DatabaseConnection.getConnection()){
@@ -36,6 +59,40 @@ public class AdminDAO {
        return 0;    
    }
 
+    /**
+    * Get all users from user table
+    * @return all the users
+    * @throws SQLException if returning the list is unsuccessful
+    */
+   public ArrayList<User> getAllUsers() throws SQLException {
+    String sql = "SELECT * FROM \"User\"";
+    ArrayList<User> users = new ArrayList<User>();
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                while (rs.next()) {
+                    users.add( new User(
+                        rs.getString("Username"),
+                        rs.getString("Password"),
+                        rs.getString("First_Name"),
+                        rs.getString("Last_Name"),
+                        rs.getString("Email"),
+                        rs.getString("Phone_Number"),
+                        rs.getString("Type")
+                    ));
+                }
+            }
+        }
+    return users;    
+    }
+
+   /**
+    * Gets an admin from a user's username
+    * @param user represents the user we're getting the username from
+    * @return the Admin from the user table
+    * @throws SQLException if fetching the admin is unsuccessful
+    */
    public Admin getAdmin(User user) throws SQLException {
     String sql = "SELECT * FROM \"Admin\" WHERE \"Username\" = ?";
     try(Connection conn = DatabaseConnection.getConnection()){

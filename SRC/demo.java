@@ -327,7 +327,7 @@ public class demo {
             userService.registerUser(user);
             sellerService.registerSeller(user);
         user.setSellerID(sellerService.getSellerrID(username));
-        //Go to Seller meniu
+        //Go to Seller menu
         sellerMenu(user);
         }
         catch(SQLException e){
@@ -393,8 +393,11 @@ public static boolean login(){
             //get the data from the database
             Admin admin = adminService.getAdmin(user);
 
-            adminMenu(admin);
             
+
+            //Go to the admin meunu
+            adminMenu(admin);
+
         }
         }
         //Return to the main menu
@@ -433,8 +436,10 @@ public static boolean login(){
             adminService.registerAdmin(user);
         user.setAdminID(adminService.getAdminID(username));
 
+
+        //Go to the admin menu
         adminMenu(user);
-        
+
         }
         catch(SQLException e){
             System.out.println(e);
@@ -755,7 +760,7 @@ public static void sellerMenu(Seller seller){
                      }
                      break;
 
-                     //Deleate product
+                     //Delete product
                      case 4:
                      product = null;
                      noError = true;
@@ -992,6 +997,124 @@ public static void adminMenu(Admin admin) {
 }
 }
 
+
+public static void adminMenu(Admin admin) {
+
+    System.out.println("Welcome to the Admin Menu");
+
+    Scanner scanner = new Scanner(System.in);
+    String menuCheck;
+    int choice = 0;
+    boolean validInput = false;
+
+    while(validInput == false){
+        System.out.println("1. View Users");
+        System.out.println("2. Delete Users");
+        System.out.println("3. List Products");
+        System.out.println("Please select option 1-3");
+        menuCheck = scanner.next();
+        try{
+            choice = Integer.valueOf(menuCheck);
+        }
+        catch(NumberFormatException e){
+
+        }
+        switch (choice) {
+            case 1:
+            try {
+                ArrayList<User>users = adminService.getAllUser();
+                if(users == null){
+                    System.out.println("There are currently no users");
+                }
+            else {
+                for (User user: users) {
+                    System.out.println(user.toString());
+                }
+            }}
+            catch (SQLException e) {
+                System.out.println(e);
+            }
+            break;
+
+            case 2:
+            User user = null;
+            boolean noError = true;
+            scanner.nextLine();
+
+            System.out.println("Enter the username of the user you wish to delete");
+            String username = scanner.nextLine();
+            
+            try {
+                user = userService.getUser(username);
+            }
+            catch (SQLException e) {
+                System.out.println(e);
+                noError = false;
+            }
+            if(noError){
+                if(user == null){
+                    System.out.println("There is no user under this name");
+                }
+
+                else {
+                    try {
+                        String confirmation = "";
+                        //Loop until a valid response is given
+                        while (true) {
+                            System.out.println("Are you sure you wish to delete this user? This will also delete their product listings. Y/N");
+                            confirmation = scanner.nextLine().trim().toUpperCase();
+                    
+                            //Check for valid input
+                            if (confirmation.equals("Y")) {
+                                //Admin chose to delete, proceed to delete user and their products
+                                if (sellerService.isSeller(user)){
+                                    sellerService.deleteSeller(username);
+                                }
+                                else {
+                                    userService.deleteUser(username);
+                                }
+                                System.out.println("User and their product listings have been deleted.");
+                                break;
+                            } else if (confirmation.equals("N")) {
+                                //Admin chose to not delete, exit operation
+                                System.out.println("Deletion canceled.");
+                                return;
+                            } else {
+                                //Handle invalid input
+                                System.out.println("Invalid input. Please enter 'Y' to confirm or 'N' to cancel.");
+                            }
+                        }}
+                    catch (SQLException e) {
+                        System.out.println(e);
+                        noError = false;
+                    }
+                }
+            }
+            break;
+
+            case 3:
+            try {
+                ArrayList<Product>products = productService.getAllProduct();
+                if(products == null) {
+                    System.out.println("There are currently no products");
+                }
+                else {
+                    for (Product product: products) {
+                        int sellerID;
+                        sellerID = product.getSellerID();
+                        Seller seller = sellerService.getSeller(sellerID);
+
+                        System.out.println(product.toString());
+                        System.out.println(seller.toString());
+                    }}
+                }
+                catch (SQLException e) {
+                    System.out.println(e);
+                } 
+            break;
+        }
+    }
+}
 
     public static void main(String[] args) {
     boolean valid = false;
