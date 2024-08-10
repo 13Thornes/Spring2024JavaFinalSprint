@@ -114,4 +114,32 @@ public class UserDAO {
         }
         return true;    
     }
+
+    public void deleteUserByUsernamer(String username){
+        String sql = "Delete FROM  \"Buyer\" Where  \"username\" = ?";
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        
+    
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+    public void deleteUser(String username) throws SQLException {
+        String sql = "DELETE FROM  \"User\" WHERE  \"Username\" = ?";
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }

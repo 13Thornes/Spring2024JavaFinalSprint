@@ -96,4 +96,19 @@ public class BuyerDAO {
         }
         return null;    
     }
+
+    public void deleteBuyerByUsernamer(String username){
+        String sql = "Delete FROM  \"Buyer\" Where  \"username\" = ?";
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        
+    
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }

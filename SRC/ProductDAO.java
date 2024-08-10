@@ -89,12 +89,32 @@ public Product getProduct(String productName) throws SQLException {
     return null;    
 }
 
+
+public String getSellerUsername(int sellerID) throws SQLException{
+    String sql = "SELECT * FROM \"Seller\" WHERE \"Seller_ID\" = ?";
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, sellerID);
+
+
+try (ResultSet rs = preparedStatement.executeQuery()){
+    while (rs.next()) {
+      return rs.getString("Username");
+    }
+}
+
+return null;    
+}
+}
+
+
 /**
  * Retrieves a list of products belonging to one seller
  * @param sellerID searches the product list for products that match the seller ID
  * @return the list of broducts belonging to that seller
  * @throws SQLException is retriving the list is unsuccessful
  */
+
 public ArrayList<Product> getSellerProducts(int sellerID) throws SQLException {
     String sql = "SELECT * FROM \"Product\" WHERE \"Seller_ID\" = ?";
     ArrayList<Product> product = new ArrayList<Product>();
@@ -197,6 +217,21 @@ public void deleteProduct(String productName){
     try(Connection conn = DatabaseConnection.getConnection()){
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setString(1, productName);
+        preparedStatement.executeUpdate();
+    
+
+    }
+    catch(SQLException e){
+        System.out.println(e);
+    }
+}
+
+public  void deleateProductBySellerID(int sellerID){
+    String sql = "Delete FROM  \"Product\" Where  \"Seller_ID\" = ?";
+
+    try(Connection conn = DatabaseConnection.getConnection()){
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, sellerID);
         preparedStatement.executeUpdate();
     
 

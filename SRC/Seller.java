@@ -18,9 +18,13 @@ public class Seller extends User {
       * represents the id of the seller
       */
     private int sellerID;
+
+    private String companyName;
+
     /**
       * represents the street address of the seller
       */
+
     private String stAdd;
     /**
       * represents the city of the seller
@@ -56,9 +60,10 @@ public class Seller extends User {
     * * @param postalCode Accepts the postal code of seller and sets it to the Seller object
      */
     public Seller(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type,
-                  int sellerID, String stAdd, String city, String prov, String postalCode) {
+                  int sellerID, String companyName, String stAdd, String city, String prov, String postalCode) {
         super(username, password, firstName, lastName, email, phoneNumber, type);
         this.sellerID = sellerID;
+        this.companyName = companyName;
         this.stAdd = stAdd;
         this.city = city;
         this.prov = prov;
@@ -82,10 +87,21 @@ public class Seller extends User {
         this.sellerID = sellerID;
     }
 
+s
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    
+
     /**
      * 
      * @return returns the seller's street address
      */
+
     public String getStAdd() {
         return stAdd;
     }

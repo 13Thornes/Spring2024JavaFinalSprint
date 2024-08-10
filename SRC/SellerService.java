@@ -62,6 +62,14 @@ public class SellerService {
         return seller;
     }
 
+
+    public void deleteSellerByUsername(String username) throws SQLException{
+
+        sellerDAO.deleteSellerByUsernamer( username);
+        System.out.println("Seller Deleted");   
+    }
+
+
     /**
      * Get seller that matches a user
      * @param user is how we search for the seller
@@ -80,6 +88,7 @@ public class SellerService {
      * @return the seller that matches the ID
      * @throws SQLException if the search is unsuccessful
      */
+
     public Seller getSeller(int sellerID) throws SQLException{
        
         Seller seller = sellerDAO.getSeller(sellerID);

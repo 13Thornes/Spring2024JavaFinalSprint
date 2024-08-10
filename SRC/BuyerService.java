@@ -51,4 +51,10 @@ public int getbuyerID(String username) throws SQLException{
         Buyer buyer = buyerDAO.getBuyer(user);
         return buyer;
     }
+
+    public void deleteBuyerByID(String username) throws SQLException{
+
+        buyerDAO.deleteBuyerByUsernamer( username);
+        System.out.println("Buyer Deleted");   
+    }
 }

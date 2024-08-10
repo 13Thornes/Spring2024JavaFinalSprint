@@ -102,4 +102,16 @@ public int getProductID(String productID) throws SQLException{
     productDAO.deleteProduct( productName);
     System.out.println("Product Deleted");   
 }
+
+public void deleteProductBySellerID(int sellerID) throws SQLException{
+
+    productDAO.deleateProductBySellerID( sellerID);
+    System.out.println("Product Deleted");   
+}
+
+public String getSellerUsername(int sellerID) throws SQLException{
+
+    return productDAO.getSellerUsername( sellerID);
+       
+}
 }

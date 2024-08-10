@@ -42,6 +42,9 @@ public class UserService {
         return true;
 }
 
+
+public User getUserByUsername(String username) throws SQLException{
+
 /**
  * Deletes a user from the database
  * @param user represents the user we're deleting
@@ -62,9 +65,12 @@ public User getUser(String username) throws SQLException {
     if(username == null){
         System.out.println("The User Does Not Exist");
     }
+
     User user = userDAO.getUserByUsername(username);
     return user;
 }
+
+
 
 /**
  * makes sure a user is authorized
@@ -73,6 +79,7 @@ public User getUser(String username) throws SQLException {
  * @return the user that matches the username and password
  * @throws SQLException if match isn't found
  */
+
 public User authUser(String username,String password) throws SQLException{
     if(username == null || password == null){
         System.out.println("The User Does Not Exist");
@@ -105,5 +112,17 @@ public boolean validateUsername(String username){
     catch(SQLException e){
         return false;
     }
+}
+
+public User getUser(String username) throws SQLException {
+    if(username == null){
+        System.out.println("The User Does Not Exist");
+    }
+    User user = userDAO.getUserByUsername(username);
+    return user;
+}
+
+public void deleteUser(String username) throws SQLException{
+    userDAO.deleteUser(username);
 }
 }

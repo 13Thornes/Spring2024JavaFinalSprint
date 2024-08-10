@@ -6,10 +6,10 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
  * @author Samantha Thorne
  * @version 1.00
  */
+
 
 public class AdminService {
 
@@ -59,14 +59,26 @@ public int getAdminID(String username) throws SQLException{
         Admin admin = adminDAO.getAdmin(user);
         return admin;
     }
+    
+     public ArrayList<User> getAllUser() throws SQLException{
+
 /**
  * Searches the whole database for users then lists them
  * @return ArrayList of users
  * @throws SQLException if the search is unsuccessful
  */
     public ArrayList<User> getAllUser() throws SQLException{
+
         ArrayList<User>users = adminDAO.getAllUsers();
         return users;
+    }
+    
+     Final-touches
+
+    public void deleteAdminByID(String username) throws SQLException{
+
+        adminDAO.deleteAdminBYUsernamer( username);
+        System.out.println("Admin Deleted");   
     }
 }
 

@@ -20,17 +20,18 @@ public class SellerDAO {
      * @throws SQLException if adding the seller isn't successful
      */
      public void addSeller(Seller seller) throws SQLException{
-        String sql = "INSERT INTO \"Seller\" (\"Username\", \"St_Add\", \"City\", \"Prov\", \"Postal_Code\") VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO \"Seller\" (\"Username\", \"Company_Name\", \"St_Add\", \"City\", \"Prov\", \"Postal_Code\") VALUES (?, ?, ?, ?, ?,?)";
 
         try(Connection conn = DatabaseConnection.getConnection()){
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             
             preparedStatement.setString(1, seller.getUsername());
-            preparedStatement.setString(2, seller.getStAdd());
-            preparedStatement.setString(3, seller.getFirstName());
-            preparedStatement.setString(4, seller.getProv());
-            preparedStatement.setString(5, seller.getPostalCode());
+            preparedStatement.setString(2, seller.getCompanyName());
+            preparedStatement.setString(3, seller.getStAdd());
+            preparedStatement.setString(4, seller.getFirstName());
+            preparedStatement.setString(5, seller.getProv());
+            preparedStatement.setString(6, seller.getPostalCode());
 
             preparedStatement.executeUpdate();
 
@@ -102,6 +103,7 @@ public class SellerDAO {
                         user.getPhoneNumber(),
                         user.getType(),
                         rs.getInt("Seller_ID"),
+                        rs.getString("Company_Name"),
                         rs.getString("St_Add"),
                         rs.getString("City"),
                         rs.getString("Prov"),
@@ -113,41 +115,30 @@ public class SellerDAO {
         }
         return null;    
     }
-    /**
-     * Gets a seller by searching for a matching user
-     * @param user is the user we're searching for
-     * @return the Seller that matches the user
-     * @throws SQLException if the search is unsuccessful
-     */
-    public Seller getSeller(int sellerID) throws SQLException {
-        String sql = "SELECT * FROM \"Seller\" WHERE \"Seller_ID\" = ?";
+
+
+    public void deleteSellerByUsernamer(String username){
+        String sql = "Delete FROM  \"Seller\" Where  \"Username\" = ?";
+
         try(Connection conn = DatabaseConnection.getConnection()){
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            preparedStatement.setInt(1, sellerID);
-
-            try (ResultSet rs = preparedStatement.executeQuery()){
-                if (rs.next()) {
-                    return new Seller(
-                        rs.getString("Username"),
-                        rs.getString("Password"),
-                        rs.getString("First_Name"),
-                        rs.getString("Last_Name"),
-                        rs.getString("Email"),
-                        rs.getString("Phone_Number"),
-                        rs.getString("Type"),
-                        rs.getInt("Seller_ID"),
-                        rs.getString("St_Add"),
-                        rs.getString("City"),
-                        rs.getString("Prov"),
-                        rs.getString("Postal_Code")
-                        
-                    );
-                }
-            }
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        
+    
         }
-        return null;    
+        catch(SQLException e){
+            System.out.println(e);
+        }
     }
+
+
+    
+    
+
+
+    
+
     /**
      * Returns true if a user is a seller
      * @param user is the user we're searching for
@@ -173,6 +164,7 @@ public class SellerDAO {
         }
         return false;
     }
+
 }
 
 

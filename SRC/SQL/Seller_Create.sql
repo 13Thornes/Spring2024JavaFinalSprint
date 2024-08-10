@@ -8,11 +8,7 @@ CREATE TABLE public."Seller"
     "Prov" character varying(2) NOT NULL,
     "Postal_Code" character varying(6) NOT NULL,
     PRIMARY KEY ("Seller_ID"),
-    CONSTRAINT "Username" FOREIGN KEY ("Username")
-        REFERENCES public."User" ("Username") MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
+    
 );
 
 ALTER TABLE IF EXISTS public."Seller"
