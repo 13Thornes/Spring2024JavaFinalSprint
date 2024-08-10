@@ -1,7 +1,9 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "SRC/lib/jbcrypt-0.4.jar",
-        "SRC/lib/postgresql-42.5.4.jar"
+        "lib\\postgresql-42.5.4.jar",
+        "lib\\jbcrypt-0.4.jar"
+    ],
+    "java.project.sourcePaths": [
+        "SRC"
     ]
 }
