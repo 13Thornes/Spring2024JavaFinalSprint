@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 public class demo {
     private static UserService userService = new UserService();
@@ -9,7 +8,10 @@ public class demo {
     private static AdminService adminService = new AdminService();
     private static ProductService productService = new ProductService();
 
-    //Method to register
+    /**
+     * Registers a user from command line arguments
+     * @return true if register does not fail
+     */
     public static boolean register(){
         boolean valid = false;
         String username = "";
@@ -137,7 +139,7 @@ public class demo {
             }
         }
         
-        //Enter mothod to register a buyer
+        //Enter method to register a buyer
         if(type.equals("B"))
         {
             Boolean back = regBuyer(username, password, fName, lName, email, phoneNumber, type);
@@ -147,7 +149,7 @@ public class demo {
             }
         }
 
-        //Enter mothod to register a seller
+        //Enter method to register a seller
         else if(type.equals("S"))
         {
             Boolean back = regSeller(username, password, fName, lName, email, phoneNumber, type);
@@ -157,7 +159,7 @@ public class demo {
             }
         }
 
-        //Enter mothod to register an admin
+        //Enter method to register an admin
         else if(type.equals("A"))
         {
             Boolean back = regAdmin(username, password, fName, lName, email, phoneNumber, type);
@@ -169,7 +171,10 @@ public class demo {
         return true;
         
     }
-    //Method to register a buyer
+    /**
+     * Registers a buyer if requested by command line
+     * @return true if operation aborted
+     */
     public static boolean regBuyer(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
@@ -251,7 +256,10 @@ public class demo {
         return false;
     }
 
-    //Method to register a seller
+    /**
+     * Registers a seller if requested by command line
+     * @return true if operation aborted
+     */
     public static boolean regSeller(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
@@ -339,7 +347,10 @@ public class demo {
         return false;
     }
 
-    //Method to login
+    /**
+     * Logs into an account through the command line
+     * @return true if operation aborted
+     */
 public static boolean login(){
     String username;
     String password;
@@ -413,7 +424,10 @@ public static boolean login(){
 
 }
 
-    //Method to register an admin
+    /**
+     * Registers an admin if requested by command line
+     * @return true if operation aborted
+     */
     public static boolean regAdmin(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
 
         Scanner scanner = new Scanner(System.in);
@@ -449,7 +463,9 @@ public static boolean login(){
         return false;
     }
 
-//MEthod to display the buyer menu
+    /**
+     * Opens the buyer menu in the command line
+     */
 public static void buyerMenu(Buyer buyer){
     Scanner scanner = new Scanner(System.in);
     boolean out = false;
@@ -497,7 +513,9 @@ public static void buyerMenu(Buyer buyer){
 
 }
 
-//Method to veiw Products
+/**
+ * Searches for all products then puts it in command line
+ */
 public static void veiwAllProducts(){
         ArrayList<Product>products = new ArrayList<Product>();
 
@@ -522,7 +540,9 @@ public static void veiwAllProducts(){
 
 }
 
-//Method to search for a specfic product
+/**
+ * Searches for a product then puts it in command line
+ */
 public static void searchProduct(){
     String productName;
     Scanner scanner = new Scanner(System.in);
@@ -559,7 +579,9 @@ catch(SQLException e){
 
 }
 
-//Method to display the seller menu
+    /**
+     * Opens the seller menu in the command line
+     */
 public static void sellerMenu(Seller seller){
     
         System.out.println("Welcome to the Seller Menu");
@@ -753,6 +775,11 @@ public static void sellerMenu(Seller seller){
                         catch(NumberFormatException e){
                             System.out.println("Quantity must be a number - Please re-enter");
                         }
+                        product.setProductName(newName);
+                        product.setDescription(description);
+                        product.setPrice(price);
+                        product.setQty(qty);
+                        System.out.println(product.toString());
                     }
                     product.setProductName(newName);
                     product.setDescription(description);
@@ -822,6 +849,9 @@ public static void sellerMenu(Seller seller){
 
         
 }
+/**
+ * Opens the admin menu in the command line
+ */
 public static void adminMenu(Admin admin) {
 
     System.out.println("Welcome to the Admin Menu");
@@ -938,7 +968,7 @@ public static void adminMenu(Admin admin) {
                 }
                 else {
                     for (Product product: products) {
-                        User tempSeller = sellerService.getSeller(userService.getUserByUsername(productService.getSellerUsername(product.getSellerID())));
+                        User tempSeller = sellerService.getSeller(userService.getUser(productService.getSellerUsername(product.getSellerID())));
                 
                         Seller seller = sellerService.getSeller(tempSeller);
 
@@ -976,7 +1006,7 @@ public static void adminMenu(Admin admin) {
             //Display the product
             else{
                 
-                User tempSeller = sellerService.getSeller(userService.getUserByUsername(productService.getSellerUsername(product.getSellerID())));
+                User tempSeller = sellerService.getSeller(userService.getUser(productService.getSellerUsername(product.getSellerID())));
                 
                 Seller seller = sellerService.getSeller(tempSeller);
                 System.out.println(product.getProductName());
@@ -1007,124 +1037,6 @@ public static void adminMenu(Admin admin) {
 }
 }
 
-
-public static void adminMenu(Admin admin) {
-
-    System.out.println("Welcome to the Admin Menu");
-
-    Scanner scanner = new Scanner(System.in);
-    String menuCheck;
-    int choice = 0;
-    boolean validInput = false;
-
-    while(validInput == false){
-        System.out.println("1. View Users");
-        System.out.println("2. Delete Users");
-        System.out.println("3. List Products");
-        System.out.println("Please select option 1-3");
-        menuCheck = scanner.next();
-        try{
-            choice = Integer.valueOf(menuCheck);
-        }
-        catch(NumberFormatException e){
-
-        }
-        switch (choice) {
-            case 1:
-            try {
-                ArrayList<User>users = adminService.getAllUser();
-                if(users == null){
-                    System.out.println("There are currently no users");
-                }
-            else {
-                for (User user: users) {
-                    System.out.println(user.toString());
-                }
-            }}
-            catch (SQLException e) {
-                System.out.println(e);
-            }
-            break;
-
-            case 2:
-            User user = null;
-            boolean noError = true;
-            scanner.nextLine();
-
-            System.out.println("Enter the username of the user you wish to delete");
-            String username = scanner.nextLine();
-            
-            try {
-                user = userService.getUser(username);
-            }
-            catch (SQLException e) {
-                System.out.println(e);
-                noError = false;
-            }
-            if(noError){
-                if(user == null){
-                    System.out.println("There is no user under this name");
-                }
-
-                else {
-                    try {
-                        String confirmation = "";
-                        //Loop until a valid response is given
-                        while (true) {
-                            System.out.println("Are you sure you wish to delete this user? This will also delete their product listings. Y/N");
-                            confirmation = scanner.nextLine().trim().toUpperCase();
-                    
-                            //Check for valid input
-                            if (confirmation.equals("Y")) {
-                                //Admin chose to delete, proceed to delete user and their products
-                                if (sellerService.isSeller(user)){
-                                    sellerService.deleteSeller(username);
-                                }
-                                else {
-                                    userService.deleteUser(username);
-                                }
-                                System.out.println("User and their product listings have been deleted.");
-                                break;
-                            } else if (confirmation.equals("N")) {
-                                //Admin chose to not delete, exit operation
-                                System.out.println("Deletion canceled.");
-                                return;
-                            } else {
-                                //Handle invalid input
-                                System.out.println("Invalid input. Please enter 'Y' to confirm or 'N' to cancel.");
-                            }
-                        }}
-                    catch (SQLException e) {
-                        System.out.println(e);
-                        noError = false;
-                    }
-                }
-            }
-            break;
-
-            case 3:
-            try {
-                ArrayList<Product>products = productService.getAllProduct();
-                if(products == null) {
-                    System.out.println("There are currently no products");
-                }
-                else {
-                    for (Product product: products) {
-                        int sellerID;
-                        sellerID = product.getSellerID();
-                        Seller seller = sellerService.getSeller(sellerID);
-
-                        System.out.println(product.toString());
-                        System.out.println(seller.toString());
-                    }}
-                }
-                catch (SQLException e) {
-                    System.out.println(e);
-                } 
-            break;
-        }
-    }
-}
 
     public static void main(String[] args) {
     boolean valid = false;

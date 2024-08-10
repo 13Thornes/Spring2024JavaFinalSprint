@@ -87,7 +87,6 @@ public class Seller extends User {
         this.sellerID = sellerID;
     }
 
-s
     public String getCompanyName() {
         return companyName;
     }

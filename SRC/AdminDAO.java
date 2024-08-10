@@ -133,27 +133,4 @@ public void deleteAdminBYUsernamer(String username){
         System.out.println(e);
     }
 }
-
-public ArrayList<User> getAllUsers() throws SQLException {
-    String sql = "SELECT * FROM \"User\"";
-    ArrayList<User> users = new ArrayList<User>();
-    try(Connection conn = DatabaseConnection.getConnection()){
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            try (ResultSet rs = preparedStatement.executeQuery()){
-                while (rs.next()) {
-                    users.add( new User(
-                        rs.getString("Username"),
-                        rs.getString("Password"),
-                        rs.getString("First_Name"),
-                        rs.getString("Last_Name"),
-                        rs.getString("Email"),
-                        rs.getString("Phone_Number"),
-                        rs.getString("Type")
-                    ));
-                }
-            }
-        }
-    return users;    
-    }
 }

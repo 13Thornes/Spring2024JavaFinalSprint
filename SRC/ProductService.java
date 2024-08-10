@@ -91,7 +91,7 @@ public int getProductID(String productID) throws SQLException{
 
         productDAO.updateProduct( productName, product);
         System.out.println("Product Updated");   
-}
+    }
     /**
      * Deletes a product from the database
      * @param productName represents the product we want to delete
@@ -101,17 +101,26 @@ public int getProductID(String productID) throws SQLException{
 
     productDAO.deleteProduct( productName);
     System.out.println("Product Deleted");   
-}
+    }
 
-public void deleteProductBySellerID(int sellerID) throws SQLException{
+    /**
+     * Deletes a product from the database using ID
+     * @param sellerID represents the ID of the seller we want to use
+     * @throws SQLException if deletion is unsuccessful
+     */
+    public void deleteProductBySellerID(int sellerID) throws SQLException{
 
-    productDAO.deleateProductBySellerID( sellerID);
-    System.out.println("Product Deleted");   
-}
+        productDAO.deleateProductBySellerID( sellerID);
+        System.out.println("Product Deleted");   
+    }
+    /**
+     * Gets a sellers username from their ID
+     * @param sellerID represents the ID of the seller we want to use
+     * @throws SQLException if deletion is unsuccessful
+     */
+    public String getSellerUsername(int sellerID) throws SQLException{
 
-public String getSellerUsername(int sellerID) throws SQLException{
-
-    return productDAO.getSellerUsername( sellerID);
-       
-}
+        return productDAO.getSellerUsername( sellerID);
+        
+    }
 }

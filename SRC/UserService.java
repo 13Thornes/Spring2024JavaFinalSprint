@@ -40,89 +40,75 @@ public class UserService {
 
 
         return true;
-}
-
-
-public User getUserByUsername(String username) throws SQLException{
-
-/**
- * Deletes a user from the database
- * @param user represents the user we're deleting
- * @throws SQLException if creation was unsuccessfull
- */
-
-public void deleteUser(String username) throws SQLException{
-    userDAO.deleteUser(username);
-}
-
-/**
- * Gets a user from the database
- * @param user represents the user we're getting
- * @return user if found
- * @throws SQLException if creation was unsuccessfull
- */
-public User getUser(String username) throws SQLException {
-    if(username == null){
-        System.out.println("The User Does Not Exist");
     }
 
-    User user = userDAO.getUserByUsername(username);
-    return user;
-}
+    /**
+     * Deletes a user from the database
+     * @param user represents the user we're deleting
+     * @throws SQLException if creation was unsuccessfull
+     */
 
-
-
-/**
- * makes sure a user is authorized
- * @param username represents the username to login
- * @param password represents the password to login
- * @return the user that matches the username and password
- * @throws SQLException if match isn't found
- */
-
-public User authUser(String username,String password) throws SQLException{
-    if(username == null || password == null){
-        System.out.println("The User Does Not Exist");
+    public void deleteUser(String username) throws SQLException{
+        userDAO.deleteUser(username);
     }
 
-    User user = userDAO.getUserByUsername(username);
+    /**
+     * Gets a user from the database
+     * @param user represents the user we're getting
+     * @return user if found
+     * @throws SQLException if creation was unsuccessfull
+     */
+    public User getUser(String username) throws SQLException {
+        if(username == null){
+            System.out.println("The User Does Not Exist");
+        }
 
-    if(user == null){
-        System.out.println("The User Does Not Exist! ");
-        return null;
+        User user = userDAO.getUserByUsername(username);
+        return user;
     }
 
-    if(!BCrypt.checkpw(password, user.getPassword())){
-        System.out.println("Wrong Password, Please Try Again!");
-        return null;
-    }
-    return user;
-}
 
-/**
- * Checks if the username is in the database
- * @param username is the username we're validating
- * @return username if it's valid
- */
-public boolean validateUsername(String username){
 
-    try{
-    return userDAO.validateUsername(username);
-    }
-    catch(SQLException e){
-        return false;
-    }
-}
+    /**
+     * makes sure a user is authorized
+     * @param username represents the username to login
+     * @param password represents the password to login
+     * @return the user that matches the username and password
+     * @throws SQLException if match isn't found
+     */
 
-public User getUser(String username) throws SQLException {
-    if(username == null){
-        System.out.println("The User Does Not Exist");
-    }
-    User user = userDAO.getUserByUsername(username);
-    return user;
-}
+    public User authUser(String username,String password) throws SQLException{
+        if(username == null || password == null){
+            System.out.println("The User Does Not Exist");
+        }
 
-public void deleteUser(String username) throws SQLException{
-    userDAO.deleteUser(username);
-}
+        User user = userDAO.getUserByUsername(username);
+
+        if(user == null){
+            System.out.println("The User Does Not Exist! ");
+            return null;
+        }
+
+        if(!BCrypt.checkpw(password, user.getPassword())){
+            System.out.println("Wrong Password, Please Try Again!");
+            return null;
+        }
+        return user;
+    }
+
+    /**
+     * Checks if the username is in the database
+     * @param username is the username we're validating
+     * @return username if it's valid
+     */
+    public boolean validateUsername(String username){
+
+        try{
+        return userDAO.validateUsername(username);
+        }
+        catch(SQLException e){
+            return false;
+        }
+    }
+
 }

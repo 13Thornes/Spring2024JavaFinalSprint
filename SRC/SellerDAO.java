@@ -116,7 +116,11 @@ public class SellerDAO {
         return null;    
     }
 
-
+    /**
+     * Deletes seller by username
+     * @param username is the user to be deleted
+     * @throws SQLException if the search is unsuccessful
+     */
     public void deleteSellerByUsernamer(String username){
         String sql = "Delete FROM  \"Seller\" Where  \"Username\" = ?";
 
@@ -131,13 +135,6 @@ public class SellerDAO {
             System.out.println(e);
         }
     }
-
-
-    
-    
-
-
-    
 
     /**
      * Returns true if a user is a seller

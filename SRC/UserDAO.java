@@ -4,7 +4,6 @@
 
 // import required libraries
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -124,19 +123,6 @@ public class UserDAO {
             preparedStatement.executeUpdate();
         
     
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
-    }
-
-    public void deleteUser(String username) throws SQLException {
-        String sql = "DELETE FROM  \"User\" WHERE  \"Username\" = ?";
-
-        try(Connection conn = DatabaseConnection.getConnection()){
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.executeUpdate();
         }
         catch(SQLException e){
             System.out.println(e);
