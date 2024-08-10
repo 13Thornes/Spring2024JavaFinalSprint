@@ -31,5 +31,17 @@ public int getSellerrID(String username) throws SQLException{
         return seller;
     }
 
+    public void deleteSellerByUsername(String username) throws SQLException{
+
+        sellerDAO.deleteSellerByUsernamer( username);
+        System.out.println("Seller Deleted");   
+    }
+
+    public Seller getSeller(int sellerID) throws SQLException{
+       
+        Seller seller = sellerDAO.getSeller(sellerID);
+        return seller;
+    }
+
     
 }

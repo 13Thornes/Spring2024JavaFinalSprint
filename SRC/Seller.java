@@ -4,6 +4,7 @@ import java.util.List;
 public class Seller extends User {
 
     private int sellerID;
+    private String companyName;
     private String stAdd;
     private String city;
     private String prov;
@@ -15,9 +16,10 @@ public class Seller extends User {
 
     // Constructor
     public Seller(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type,
-                  int sellerID, String stAdd, String city, String prov, String postalCode) {
+                  int sellerID, String companyName, String stAdd, String city, String prov, String postalCode) {
         super(username, password, firstName, lastName, email, phoneNumber, type);
         this.sellerID = sellerID;
+        this.companyName = companyName;
         this.stAdd = stAdd;
         this.city = city;
         this.prov = prov;
@@ -34,6 +36,14 @@ public class Seller extends User {
         this.sellerID = sellerID;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    
     public String getStAdd() {
         return stAdd;
     }

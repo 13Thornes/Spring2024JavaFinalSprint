@@ -24,6 +24,11 @@ public class UserService {
         return true;
 }
 
+public User getUserByUsername(String username) throws SQLException{
+    User user = userDAO.getUserByUsername(username);
+    return user;
+}
+
 public User authUser(String username,String password) throws SQLException{
     if(username == null || password == null){
         System.out.println("The User Does Not Exist");
@@ -51,5 +56,17 @@ public boolean validateUsername(String username){
     catch(SQLException e){
         return false;
     }
+}
+
+public User getUser(String username) throws SQLException {
+    if(username == null){
+        System.out.println("The User Does Not Exist");
+    }
+    User user = userDAO.getUserByUsername(username);
+    return user;
+}
+
+public void deleteUser(String username) throws SQLException{
+    userDAO.deleteUser(username);
 }
 }

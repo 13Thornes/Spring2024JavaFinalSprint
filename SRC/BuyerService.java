@@ -1,7 +1,5 @@
 import java.sql.SQLException;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 
 public class BuyerService {
     BuyerDAO buyerDAO = new BuyerDAO();
@@ -28,5 +26,11 @@ public int getbuyerID(String username) throws SQLException{
        
         Buyer buyer = buyerDAO.getBuyer(user);
         return buyer;
+    }
+
+    public void deleteBuyerByID(String username) throws SQLException{
+
+        buyerDAO.deleteBuyerByUsernamer( username);
+        System.out.println("Buyer Deleted");   
     }
 }

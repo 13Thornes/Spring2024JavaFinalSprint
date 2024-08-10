@@ -170,7 +170,6 @@ public class demo {
         
     }
     //Method to register a buyer
-
     public static boolean regBuyer(String username, String password, String firstName, String lastName, String email, String phoneNumber, String type){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
@@ -178,8 +177,9 @@ public class demo {
         String postalCode = "";
 
         //Enter the necessary information
+        scanner.nextLine();
         System.out.println("Enter the street address");
-        String stAdd = scanner.next();
+        String stAdd = scanner.nextLine();
 
         //Exist registry
         if(stAdd.equals("-1")){
@@ -259,8 +259,17 @@ public class demo {
         String postalCode = "";
 
         //Enter the necessary information
+
+        System.out.println("Enter the company name");
+        String companyName = scanner.nextLine();
+
+        //Exit to registry
+        if(companyName.equals("-1")){
+            return true;
+        }
+
         System.out.println("Enter the street address");
-        String stAdd = scanner.next();
+        String stAdd = scanner.nextLine();
 
         //Exit to registry
         if(stAdd.equals("-1")){
@@ -313,7 +322,7 @@ public class demo {
         }
 
         //Create the seller and add the information to the database
-        Seller user = new Seller(username, password, firstName, lastName, email, phoneNumber, type, 1, stAdd, city, prov, postalCode);
+        Seller user = new Seller(username, password, firstName, lastName, email, phoneNumber, type, 1, companyName, stAdd, city, prov, postalCode);
         try{
             userService.registerUser(user);
             sellerService.registerSeller(user);
@@ -384,7 +393,7 @@ public static boolean login(){
             //get the data from the database
             Admin admin = adminService.getAdmin(user);
 
-            //Go to the admin meunu
+            adminMenu(admin);
             
         }
         }
@@ -591,7 +600,10 @@ public static void sellerMenu(Seller seller){
                     else{
                         //Display all of the seller's products
                         for(Product product: products){
-                            System.out.println(product.toString());
+                            System.out.println(product.getProductName());
+                            System.out.println("Description: " + product.getDescription());
+
+                            System.out.println("Price: " + product.getPrice() + " QTY: " + product.getQty());
                         }
                     }
                     }
@@ -792,7 +804,194 @@ public static void sellerMenu(Seller seller){
                 
             }
         }
+
+        
 }
+public static void adminMenu(Admin admin) {
+
+    System.out.println("Welcome to the Admin Menu");
+
+    Scanner scanner = new Scanner(System.in);
+    String menuCheck;
+    int choice = 0;
+    boolean validInput = false;
+
+    while(validInput == false){
+        System.out.println("1. View Users");
+        System.out.println("2. Delete Users");
+        System.out.println("3. List Products");
+        System.out.println("4. Search Products");
+        System.out.println("5. exit");
+        System.out.println("Please select option 1-5");
+        menuCheck = scanner.next();
+        try{
+            choice = Integer.valueOf(menuCheck);
+        }
+        catch(NumberFormatException e){
+
+        }
+        switch (choice) {
+            case 1:
+            try {
+                ArrayList<User>users = adminService.getAllUser();
+                if(users == null){
+                    System.out.println("There are currently no users");
+                }
+            else {
+                for (User user: users) {
+                    System.out.println("Name:"  + user.getFirstName() + " " + user.getLastName());
+                    System.out.println("Username:"  + user.getUsername() + ", Email " + user.getEmail() + ", Phone  number" + user.getPhoneNumber()) ;
+                    System.out.println("Type: " + user.getType()) ;
+                }
+            }}
+            catch (SQLException e) {
+                System.out.println(e);
+            }
+            break;
+
+            case 2:
+            User user = null;
+            boolean noError = true;
+            scanner.nextLine();
+
+            System.out.println("Enter the username of the user you wish to delete");
+            String username = scanner.nextLine();
+            
+            try {
+                user = userService.getUser(username);
+            }
+            catch (SQLException e) {
+                System.out.println(e);
+                noError = false;
+            }
+            if(noError){
+                if(user == null){
+                    System.out.println("There is no user under this name");
+                }
+
+                else {
+                    try {
+                        String confirmation = "";
+                        //Loop until a valid response is given
+                        while (true) {
+                            System.out.println("Are you sure you wish to delete this user? This will also delete their product listings. Y/N");
+                            confirmation = scanner.nextLine().trim().toUpperCase();
+                    
+                            //Check for valid input
+                            if (confirmation.equals("Y")) {
+                                //Admin chose to delete, proceed to delete user and their products
+                                if (user.getType().equals("S")){
+                                    Seller seller = sellerService.getSeller(user);
+                                    productService.deleteProductBySellerID(seller.getSellerID());
+                                    sellerService.deleteSellerByUsername(username);
+                                    userService.deleteUser(username);
+                                    System.out.println("User and their product listings have been deleted.");
+
+                                }
+                                else if(user.getType().equals("B")) {
+                                    buyerService.deleteBuyerByID(username);
+                                    userService.deleteUser(username);
+                                }
+                                else{
+                                    adminService.deleteAdminByID(username);
+                                    userService.deleteUser(username);
+                                }
+                                
+                                break;
+                            } else if (confirmation.equals("N")) {
+                                //Admin chose to not delete, exit operation
+                                System.out.println("Deletion canceled.");
+                                return;
+                            } else {
+                                //Handle invalid input
+                                System.out.println("Invalid input. Please enter 'Y' to confirm or 'N' to cancel.");
+                            }
+                        }}
+                    catch (SQLException e) {
+                        System.out.println(e);
+                        noError = false;
+                    }
+                }
+            }
+            break;
+
+            case 3:
+            try {
+                ArrayList<Product>products = productService.getAllProduct();
+                if(products == null) {
+                    System.out.println("There are currently no products");
+                }
+                else {
+                    for (Product product: products) {
+                        User tempSeller = sellerService.getSeller(userService.getUserByUsername(productService.getSellerUsername(product.getSellerID())));
+                
+                        Seller seller = sellerService.getSeller(tempSeller);
+
+                        System.out.println(product.getProductName());
+                        System.out.println("Description: " + product.getDescription());
+
+                        System.out.println("Price: " + product.getPrice() + " QTY: " + product.getQty());
+                        System.out.println("Name:"  + seller.getFirstName() + " " + seller.getLastName());
+                        System.out.println("Username:"  + seller.getUsername() + ", Email " + seller.getEmail() + ", Phone  number" + seller.getPhoneNumber()) ;
+                        System.out.println("Address:" + seller.getStAdd() + ", " + seller.getCity() + ", " + seller.getProv() + ", " + seller.getPostalCode());
+                        System.out.println();
+                    }}
+                }
+                catch (SQLException e) {
+                    System.out.println(e);
+                } 
+            break;
+
+            case 4:
+            String productName = "";
+            System.out.println("Enter the product Name");
+            scanner.nextLine();
+            productName = scanner.nextLine();
+        
+        try{
+            Product product = productService.getProduct(productName);
+        
+            //Enter if the product is not in the data base
+            if(product == null){
+                System.out.println("Could not find product");
+        
+            
+            }
+        
+            //Display the product
+            else{
+                
+                User tempSeller = sellerService.getSeller(userService.getUserByUsername(productService.getSellerUsername(product.getSellerID())));
+                
+                Seller seller = sellerService.getSeller(tempSeller);
+                System.out.println(product.getProductName());
+                System.out.println("Description: " + product.getDescription());
+        
+                System.out.println("Price: " + product.getPrice() + " QTY: " + product.getQty());
+                System.out.println("Price: " + product.getPrice() + " QTY: " + product.getQty());
+                System.out.println("Name:"  + seller.getFirstName() + " " + seller.getLastName());
+                System.out.println("Username:"  + seller.getUsername() + ", Email " + seller.getEmail() + ", Phone  number" + seller.getPhoneNumber()) ;
+                System.out.println("Address:" + seller.getStAdd() + ", " + seller.getCity() + ", " + seller.getProv() + ", " + seller.getPostalCode());
+            }
+        
+            
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        break;
+
+        case 5:
+        validInput = true;
+        break;
+
+        default:
+        System.out.println("Invalid input - Please re-enter");
+    }
+}
+}
+
 
     public static void main(String[] args) {
     boolean valid = false;
