@@ -433,7 +433,7 @@ public static boolean login(){
             adminService.registerAdmin(user);
         user.setAdminID(adminService.getAdminID(username));
 
-        //Go to the admin menu
+        adminMenu(user);
         
         }
         catch(SQLException e){
