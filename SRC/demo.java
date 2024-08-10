@@ -1,6 +1,12 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * @author Micheal Walsh
+ * @version 1.00
+ */
+
 public class demo {
     private static UserService userService = new UserService();
     private static BuyerService buyerService = new BuyerService();
