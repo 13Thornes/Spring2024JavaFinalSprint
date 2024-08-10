@@ -688,6 +688,9 @@ public static void sellerMenu(Seller seller){
                      //Update product
                     case 3:
                     scanner.nextLine();
+                    price = 0;
+                    qty = 0;
+                    String newName = "";
                     Product product = null;
                     Boolean noError = true;
                     valid = false; 
@@ -712,11 +715,11 @@ public static void sellerMenu(Seller seller){
                             System.out.println(productName + " does not exisit");
                         }
                         else{
-                            scanner.nextLine();
+                            
 
                     //Enter the necessary information
                     System.out.println("Enter the product name");
-                    productName = scanner.nextLine();
+                    newName = scanner.nextLine();
                     
 
                     System.out.println("Enter the product description");
@@ -745,10 +748,17 @@ public static void sellerMenu(Seller seller){
                     qty = scanner.nextInt();
                     valid = true;
                         }
+
+                        
                         catch(NumberFormatException e){
                             System.out.println("Quantity must be a number - Please re-enter");
                         }
                     }
+                    product.setProductName(newName);
+                    product.setDescription(description);
+                    product.setPrice(price);
+                    product.setQty(qty);
+                    System.out.println(product.toString());
                             try{
                                 //Update the product
                             productService.updateProduct(product, productName);
